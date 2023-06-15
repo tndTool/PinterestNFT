@@ -70,7 +70,6 @@ npm start</code></pre>
   <li>ReactJS</li>
   <li>NodeJS</li>
   <li>Metamask</li>
-  <li>Web3.js</li>
   <li>Ethereum</li>
   <li>Solidity</li>
 </ul>
