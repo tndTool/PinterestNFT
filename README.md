@@ -36,7 +36,7 @@
 <p style="color:white">To install and run the client and server, follow these steps:</p>
 <ol>
   <li>Clone the repository:</li>
-  <pre><code>https://github.com/tndTool/FinalTest.git</code></pre>
+  <pre><code>https://github.com/tndTool/PinterestNFT.git</code></pre>
 
   <li>Install the dependencies for the client and server:</li>
   <pre><code>cd pinterest-clone/client
