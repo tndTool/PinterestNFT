@@ -78,4 +78,4 @@ npm start</code></pre>
 <p>Contributions are welcome! If you'd like to contribute to this project, please fork the repository and create a pull request. For major changes, please open an issue first to discuss what you would like to change.</p>
 
 <h2 style="color:white">License</h2>
-<p>This project is licensed under the MIT License.</p>
+<p>This project is licensed under the <b>MIT License.</b></p>
