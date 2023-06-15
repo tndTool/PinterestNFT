@@ -1,9 +1,7 @@
 <h1>About</h1>
 
 <h3 style="color:white">Performer: <span style="color:#ccc">Nguyễn Đức Toàn</span></h3>
-<br>
 <h3 style="color:white">Topic: <span style="color:#ccc">Build a website like Pinterest <a href="https://pinterest.com">(www.pinterest.com)</a></span></h3>
-<br>
 <h3 style="color:white">Requirement:</h3>
 <ul>
   <li>Connect to metamask.</li>
@@ -12,9 +10,7 @@
   <li>Home page showing images from NFT contract.</li>
   <li>UI/UX: refer to Pinterest's UI/UX.</li>
 </ul>
-<br>
 <h3 style="color:white">Date: <span style="color:#ccc">05/06/2023 - 15/06/2023</span></h3>
-<br>
 <h3 style="color:white">Status: <span style="color:#d4edbc">Complete</span></h3>
 
 <br>
