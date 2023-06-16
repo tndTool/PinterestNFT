@@ -23,25 +23,6 @@
 <p>+ Project folder structure: <b>By kind</b></p>
 <p>+ The project is divided into 2 parts: <b>Client uses Reactjs, Server uses NodeJS</b></p>
 
-<h3 style="color:white">Client's folder:</h3>
-<ul>
-  <li>client\public: contains the file <b>index.html.</b></li>
-  <li>client\src\components: contains React components.</li>
-  <li>client\src\contracts: contains the Solidity smart contracts that define the rules and behaviors of the blockchain application.</li>
-  <li>client\src\layouts: website layouts include Header.</li>
-  <li>client\src\pages: the pagination of the website includes: Home page and Profile page.</li>
-  <li>client\src\redux: manage redux of website, here is imageModal.</li>
-  <li>client\src\sass: reset some properties in bootstrap and responsive.</li>
-  <li>App.tsx: create website layouts and navigate the website's pages</li>
-  <li>index.tsx: is responsible for rendering the top-level component of the application, typically the App component, to the DOM. It also sets up the Redux store.</li>
-</ul>
-
-<h3 style="color:white">Server's folder:</h3>
-<ul>
-  <li>server\json: contains JSON files including: tokenId, image link and image information.</li>
-  <li>server\index.js: used to set up the server, define routes, and start listening for incoming requests.</li>
-</ul>
-
 <h2 style="color:white">Table of Contents</h2>
 <ul>
   <li>Installation</li>
