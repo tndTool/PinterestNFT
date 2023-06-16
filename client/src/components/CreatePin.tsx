@@ -1,4 +1,5 @@
 import LazyLoad from "react-lazy-load";
+import { toast } from "react-toastify";
 import { useState, useEffect, Suspense } from "react";
 
 import Loading from "../components/Loading";
@@ -64,8 +65,8 @@ const CreatePin = () => {
       });
 
       await mintNFT(accounts[0]);
-    } catch (err) {
-      console.error(err);
+    } catch (err: any) {
+      toast.error(err.message);
     }
   };
 

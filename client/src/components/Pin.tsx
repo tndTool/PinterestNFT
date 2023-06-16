@@ -1,4 +1,5 @@
 import LazyLoad from "react-lazy-load";
+import { toast } from "react-toastify";
 import React, { useState, useEffect, useMemo, Suspense } from "react";
 
 import Loading from "./Loading";
@@ -28,7 +29,7 @@ const Pin: React.FC<PinProps> = ({ tokenId }) => {
         });
       })
       .catch((error) => {
-        console.error(error);
+        toast.error(error.message);
       });
   }, [tokenId]);
 

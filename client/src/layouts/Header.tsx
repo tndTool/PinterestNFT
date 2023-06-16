@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import { NavDropdown } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 
 import { AiFillMessage } from "react-icons/ai";
 import { FaPinterest, FaSearch } from "react-icons/fa";
 import { IoIosNotifications, IoMdExit } from "react-icons/io";
-import blockies from "ethereum-blockies-base64"; // Import the blockies function
 
+import blockies from "ethereum-blockies-base64";
 import { Web3Provider } from "@ethersproject/providers";
 
 interface HeaderProps {}
@@ -39,8 +40,8 @@ const Header: React.FC<HeaderProps> = () => {
       await provider.send("wallet_requestPermissions", [{ eth_accounts: {} }]);
       setIsConnected(true);
       localStorage.setItem("isLoggedIn", "true");
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      toast.error(error.message);
     }
   };
 
@@ -49,8 +50,8 @@ const Header: React.FC<HeaderProps> = () => {
       await window.ethereum.request({ method: "eth_logout" });
       setIsConnected(false);
       localStorage.setItem("isLoggedIn", "false");
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      toast.error(error.message);
     }
   };
 
@@ -81,8 +82,8 @@ const Header: React.FC<HeaderProps> = () => {
           const avatarDataUrl = blockies(ownerAddress);
           setAvatar(avatarDataUrl);
         }
-      } catch (error) {
-        console.error(error);
+      } catch (error: any) {
+        toast.error(error.message);
       }
     };
 

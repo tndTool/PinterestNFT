@@ -1,22 +1,25 @@
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useMemo } from "react";
+
+import { ethers } from "ethers";
+import blockies from "ethereum-blockies-base64";
+
 import {
   getNFTOwner,
   getAllNFTTokenIds,
   getNFTImageUrl,
 } from "../contracts/getNFTContracts";
-import { useNavigate } from "react-router-dom";
-import { ethers } from "ethers";
 import Loading from "../components/Loading";
 import ImageList from "../components/ImageList";
-import blockies from "ethereum-blockies-base64";
 
 interface ProfileProps {}
 
 const Profile: React.FC<ProfileProps> = () => {
+  const [avatar, setAvatar] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const [balance, setBalance] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [avatar, setAvatar] = useState<string>("");
 
   const navigate = useNavigate();
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
@@ -75,8 +78,8 @@ const Profile: React.FC<ProfileProps> = () => {
 
           setIsLoading(false);
         }
-      } catch (error) {
-        console.error(error);
+      } catch (error: any) {
+        toast.error(error.message);
       }
     };
     getAddress();

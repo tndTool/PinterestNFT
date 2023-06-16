@@ -1,9 +1,10 @@
-import { useState, useEffect, useMemo, useRef } from "react";
-import { RootState } from "../redux/store";
-
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { setViewedTokenId } from "../redux/features/imageModalSlice";
+import { useState, useEffect, useMemo, useRef } from "react";
+
+import { RootState } from "../redux/store";
 import { getOwnerOf } from "../contracts/index";
+import { setViewedTokenId } from "../redux/features/imageModalSlice";
 
 interface Metadata {
   tokenId: number;
@@ -53,7 +54,7 @@ const ViewImageModal = ({
         setMetadata(metadata);
       })
       .catch((error) => {
-        console.error(error);
+        toast.error(error.message);
       });
   }, [dispatch, propsTokenId, tokenId]);
 
