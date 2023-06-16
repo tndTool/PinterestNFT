@@ -1,9 +1,8 @@
 import { useState, useEffect, useMemo, useRef } from "react";
-import Loading from "./Loading";
 import { RootState } from "../redux/store";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setViewedTokenId } from "../redux/image-modal/imageModalSlice";
+import { setViewedTokenId } from "../redux/features/imageModalSlice";
 import { getOwnerOf } from "../contracts/index";
 
 interface Metadata {
@@ -31,7 +30,6 @@ const ViewImageModal = ({
 }: ViewImageModalProps) => {
   const dispatch = useDispatch();
   const modalRef = useRef<HTMLDivElement>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [ownerOf, setOwnerOf] = useState<string | null>(null);
   const [metadata, setMetadata] = useState<Metadata | null>(null);
 
@@ -44,21 +42,18 @@ const ViewImageModal = ({
       dispatch(setViewedTokenId(propsTokenId));
     }
 
-    setIsLoading(true);
     Promise.all([
       getOwnerOf(propsTokenId),
-      fetch(`http://localhost:5000/${propsTokenId.toString()}.json`).then(
-        (response) => response.json()
-      ),
+      fetch(
+        `${process.env.REACT_APP_API_URL as string}/${propsTokenId}.json`
+      ).then((response) => response.json()),
     ])
       .then(([owner, metadata]) => {
         setOwnerOf(owner);
         setMetadata(metadata);
-        setIsLoading(false);
       })
       .catch((error) => {
         console.error(error);
-        setIsLoading(false);
       });
   }, [dispatch, propsTokenId, tokenId]);
 
@@ -90,7 +85,6 @@ const ViewImageModal = ({
 
   return (
     <>
-      <Loading isLoading={isLoading && tokenId === propsTokenId} />
       <div className="modal fade show" style={{ display: "block" }}>
         <div
           className="modal-dialog modal-dialog-centered modal-lg "

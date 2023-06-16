@@ -1,24 +1,52 @@
-import React from "react";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { Paper, Box, LinearProgress, Toolbar } from "@mui/material";
 
-interface LoadingProps {
-  message?: string;
+interface GlobalLoadingProps {
   isLoading: boolean;
 }
 
-const Loading: React.FC<LoadingProps> = ({
-  message = "Loading...",
-  isLoading,
-}) => {
-  if (!isLoading) {
-    return null;
-  }
+const GlobalLoading: React.FC<GlobalLoadingProps> = ({ isLoading }) => {
+  const { globalLoading } = useSelector((state: any) => state.globalLoading);
+
+  const [isLoadingState, setIsLoadingState] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (globalLoading) {
+      setIsLoadingState(true);
+    } else {
+      setTimeout(() => {
+        setIsLoadingState(false);
+      }, 1000);
+    }
+  }, [globalLoading]);
 
   return (
-    <div className="position-fixed top-0 left-0 w-100 h-100 z-index-9999 d-flex justify-content-center align-items-center flex-column loading-overlay">
-      <div className="loading-spinner" />
-      <div className="font-weight-bold text-danger fs-6 mt-1">{message}</div>
-    </div>
+    <>
+      <Paper
+        sx={{
+          opacity: isLoadingState ? 1 : 0,
+          pointerEvents: "none",
+          transition: "all .3s ease",
+          position: "fixed",
+          width: "100vw",
+          height: "100vh",
+          zIndex: 999,
+        }}
+      >
+        <Toolbar />
+        <LinearProgress color="error" />
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        ></Box>
+      </Paper>
+    </>
   );
 };
 
-export default Loading;
+export default GlobalLoading;

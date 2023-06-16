@@ -5,6 +5,7 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import { AiFillMessage } from "react-icons/ai";
 import { FaPinterest, FaSearch } from "react-icons/fa";
 import { IoIosNotifications, IoMdExit } from "react-icons/io";
+import blockies from "ethereum-blockies-base64"; // Import the blockies function
 
 import { Web3Provider } from "@ethersproject/providers";
 
@@ -15,6 +16,7 @@ const Header: React.FC<HeaderProps> = () => {
   const navigate = useNavigate();
   const [isConnected, setIsConnected] = useState(false);
   const [isSignedOut, setIsSignedOut] = useState(false);
+  const [avatar, setAvatar] = useState<string>("");
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
@@ -66,6 +68,29 @@ const Header: React.FC<HeaderProps> = () => {
     navigate("/");
   };
 
+  useEffect(() => {
+    const getAddress = async () => {
+      try {
+        const accounts = await window.ethereum.request({
+          method: "eth_accounts",
+        });
+        if (accounts.length > 0) {
+          const ownerAddress = accounts[0].toLowerCase();
+
+          // Generate avatar based on account address
+          const avatarDataUrl = blockies(ownerAddress);
+          setAvatar(avatarDataUrl);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (isConnected) {
+      getAddress();
+    }
+  }, [isConnected]);
+
   return (
     <div className="d-flex align-items-center p-3 text-dark bg-light">
       <Link to="/" className="text-decoration-none">
@@ -80,11 +105,11 @@ const Header: React.FC<HeaderProps> = () => {
         </button>
       </Link>
 
-      <Link to="/create" style={{ textDecoration: "none" }}>
-        <NavDropdown title="Create" id="basic-nav-dropdown">
+      <NavDropdown title="Create" id="basic-nav-dropdown">
+        <Link to="/create" style={{ textDecoration: "none" }}>
           <div className="text-dark mx-2">Create pin</div>
-        </NavDropdown>
-      </Link>
+        </Link>
+      </NavDropdown>
 
       <div className="flex-075">
         <form className="d-flex flex-1 px-1 border-secondary border-radius-4">
@@ -118,7 +143,7 @@ const Header: React.FC<HeaderProps> = () => {
           <>
             <Link to="/profile" className="text-decoration-none">
               <img
-                src="https://www.scoliosis-rehabilitation.com/mymedia/2016/06/no-face.png"
+                src={avatar} // Display the avatar
                 alt="Avatar"
                 className="rounded-circle h-2 circle-hover mx-2"
                 title="Profile"

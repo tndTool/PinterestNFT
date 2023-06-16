@@ -1,1 +1,1 @@
-export const contractAddress = "0x05cB27D9a67071f0Db862e913036487d232B9b81";
+export const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS as string;

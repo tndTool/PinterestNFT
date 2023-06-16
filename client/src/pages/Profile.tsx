@@ -1,14 +1,14 @@
-import LazyLoad from "react-lazy-load";
-import { useEffect, useState, useMemo, Suspense } from "react";
+import { useEffect, useState, useMemo } from "react";
 import {
   getNFTOwner,
   getAllNFTTokenIds,
   getNFTImageUrl,
 } from "../contracts/getNFTContracts";
 import { useNavigate } from "react-router-dom";
-
 import { ethers } from "ethers";
 import Loading from "../components/Loading";
+import ImageList from "../components/ImageList";
+import blockies from "ethereum-blockies-base64";
 
 interface ProfileProps {}
 
@@ -16,6 +16,7 @@ const Profile: React.FC<ProfileProps> = () => {
   const [address, setAddress] = useState<string>("");
   const [balance, setBalance] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [avatar, setAvatar] = useState<string>("");
 
   const navigate = useNavigate();
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
@@ -68,6 +69,10 @@ const Profile: React.FC<ProfileProps> = () => {
           const urls = await memoizedImageUrls;
           setImageUrls(urls);
 
+          // Generate avatar based on account address
+          const avatarDataUrl = blockies(ownerAddress);
+          setAvatar(avatarDataUrl);
+
           setIsLoading(false);
         }
       } catch (error) {
@@ -89,7 +94,7 @@ const Profile: React.FC<ProfileProps> = () => {
             <div className="card-body text-center">
               <div className="mt-3 mb-4">
                 <img
-                  src="https://www.scoliosis-rehabilitation.com/mymedia/2016/06/no-face.png"
+                  src={avatar}
                   alt="Avatar"
                   className="rounded-circle img-fluid w-25"
                 />
@@ -102,27 +107,9 @@ const Profile: React.FC<ProfileProps> = () => {
           </div>
         </div>
       </div>
-      <br />
-      <div className="d-flex justify-content-center w-100 h-100 mt-1 overflow-hidden">
-        <div className="home-container">
-          <Loading isLoading={isLoading} />
-          {imageUrls.map((url, index) => (
-            <div key={index} className="d-flex">
-              <div className="cursor-zoom-in border-box mb-3">
-                <LazyLoad>
-                  <Suspense fallback={<Loading isLoading={true} />}>
-                    <img
-                      className="d-flex h-100 w-100 border-radius-1 object-fit-cover hover-opacity-80"
-                      src={url}
-                      alt={`NFT ${index}`}
-                    />
-                  </Suspense>
-                </LazyLoad>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <br></br>
+      <Loading isLoading={isLoading} />
+      <ImageList imageUrls={imageUrls} />
     </div>
   );
 };
