@@ -63,8 +63,7 @@ const CreatePin = () => {
         method: "eth_requestAccounts",
       });
 
-      const receipt = await mintNFT(accounts[0]);
-      console.log(receipt);
+      await mintNFT(accounts[0]);
     } catch (err) {
       console.error(err);
     }
