@@ -35,7 +35,7 @@ const GlobalLoading: React.FC<GlobalLoadingProps> = ({ isLoading }) => {
         }}
       >
         <Toolbar />
-        <LinearProgress color="error" />
+        <div className="loading" />
         <Box
           sx={{
             position: "absolute",
