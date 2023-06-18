@@ -18,7 +18,7 @@ const ImageList: FC<Props> = ({ imageUrls }) => {
                   <img
                     className="d-flex h-100 w-100 border-radius-1 object-fit-cover hover-opacity-80"
                     src={url}
-                    alt={`Image ${index}`}
+                    alt=""
                   />
                 </Suspense>
               </LazyLoad>
