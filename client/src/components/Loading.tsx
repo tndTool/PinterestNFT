@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { Paper, Box, LinearProgress, Toolbar } from "@mui/material";
+import { Paper, Box, Toolbar } from "@mui/material";
 
 interface GlobalLoadingProps {
   isLoading: boolean;
