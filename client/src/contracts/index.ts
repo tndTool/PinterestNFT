@@ -60,10 +60,13 @@ export const getNFTImageUrlMetadata = async (tokenId: number) => {
     url: `${process.env.REACT_APP_API_URL as string}/${tokenId}.json`,
     headers: {},
   };
-  return await axios
-    .request(config)
-    .then((response) => response.data.image)
-    .catch((error) => toast.error(error));
+  try {
+    const response = await axios.request(config);
+    return response.data.image;
+  } catch (error: any) {
+    const errorMessage = "Failed to load resource";
+    toast.error(errorMessage);
+  }
 };
 
 export const mintNFT = async (address: string) => {
