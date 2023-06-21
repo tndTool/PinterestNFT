@@ -10,6 +10,7 @@ import {
   getAllNFTTokenIds,
   getNFTImageUrl,
 } from "../contracts/getNFTContracts";
+import Avatar from "../components/Avatar";
 import Loading from "../components/Loading";
 import ImageList from "../components/ImageList";
 
@@ -96,7 +97,7 @@ const Profile: React.FC<ProfileProps> = () => {
           <div className="card border-0 shadow">
             <div className="card-body text-center">
               <div className="mt-3 mb-4">
-                <img
+                <Avatar
                   src={avatar}
                   alt="Avatar"
                   className="rounded-circle img-fluid w-25"

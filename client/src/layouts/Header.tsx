@@ -10,6 +10,8 @@ import { IoIosNotifications, IoMdExit } from "react-icons/io";
 import blockies from "ethereum-blockies-base64";
 import { Web3Provider } from "@ethersproject/providers";
 
+import Avatar from "../components/Avatar";
+
 interface HeaderProps {}
 
 const Header: React.FC<HeaderProps> = () => {
@@ -143,8 +145,8 @@ const Header: React.FC<HeaderProps> = () => {
         {isConnected ? (
           <>
             <Link to="/profile" className="text-decoration-none">
-              <img
-                src={avatar} // Display the avatar
+              <Avatar
+                src={avatar}
                 alt="Avatar"
                 className="rounded-circle h-2 circle-hover mx-2"
                 title="Profile"
