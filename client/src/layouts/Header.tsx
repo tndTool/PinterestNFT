@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { NavDropdown } from "react-bootstrap";
+import { Nav, NavDropdown } from "react-bootstrap";
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 
@@ -108,11 +108,13 @@ const Header: React.FC<HeaderProps> = () => {
         </button>
       </Link>
 
-      <NavDropdown title="Create" id="basic-nav-dropdown">
-        <Link to="/create" style={{ textDecoration: "none" }}>
-          <div className="text-dark mx-2">Create pin</div>
-        </Link>
-      </NavDropdown>
+      <Nav>
+        <NavDropdown title="Create" id="basic-nav-dropdown">
+          <NavDropdown.Item onClick={() => navigate("/create")}>
+            Create pin
+          </NavDropdown.Item>
+        </NavDropdown>
+      </Nav>
 
       <div className="flex-075">
         <form className="d-flex flex-1 px-1 border-secondary border-radius-4">

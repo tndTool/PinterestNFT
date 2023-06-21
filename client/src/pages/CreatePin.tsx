@@ -66,7 +66,7 @@ const CreatePin = () => {
 
       await mintNFT(accounts[0]);
     } catch (err: any) {
-      toast.error(err.message);
+      toast.error(err);
     }
   };
 
@@ -92,7 +92,7 @@ const CreatePin = () => {
                         onClick={() => handleButtonClick(data.tokenId)}
                       />
 
-                      <div className="position-absolute top-0 right-0 mx-3 bg-danger text-white p-1">
+                      <div className="position-absolute top-0 right-0 mx-3 bg-danger text-white p-1 badge">
                         {data.tokenId}
                       </div>
                     </div>

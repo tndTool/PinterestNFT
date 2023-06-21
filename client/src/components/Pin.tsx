@@ -65,7 +65,7 @@ const Pin: React.FC<PinProps> = ({ tokenId }) => {
                   alt={`Galverse art ${tokenId}`}
                   onLoad={() => setIsLoading(false)}
                 />
-                <div className="position-absolute top-0 right-0 mx-3 bg-danger text-white p-1">
+                <div className="position-absolute top-0 right-0 mx-3 bg-danger text-white p-1 badge">
                   {tokenId}
                 </div>
               </div>

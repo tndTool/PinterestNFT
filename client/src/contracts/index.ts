@@ -1,5 +1,6 @@
 import axios from "axios";
 import { ethers } from "ethers";
+import { toast } from "react-toastify";
 import { contractABI } from "./contractABI";
 import { contractAddress } from "./contractAddress";
 
@@ -53,17 +54,16 @@ export const getAllNFTIds = async () => {
 };
 
 export const getNFTImageUrlMetadata = async (tokenId: number) => {
-  // const baseUrl = await getBaseURIExtended();
   const config = {
     method: "get",
     maxBodyLength: Infinity,
-    url: `http://localhost:5000/${tokenId.toString()}.json`,
+    url: `${process.env.REACT_APP_API_URL as string}/${tokenId}.json`,
     headers: {},
   };
   return await axios
     .request(config)
     .then((response) => response.data.image)
-    .catch((error) => console.log(error));
+    .catch((error) => toast.error(error));
 };
 
 export const mintNFT = async (address: string) => {
@@ -72,7 +72,8 @@ export const mintNFT = async (address: string) => {
     const mintNft = await contract.connect(signer).safeMint(address);
     const receipt = await provider.waitForTransaction(mintNft.hash);
     return receipt;
-  } catch (err) {
-    alert("This account cannot mint, pls change the account!");
+  } catch (err: any) {
+    const errorMessage = "Transaction signature was denied";
+    toast.error(errorMessage);
   }
 };
