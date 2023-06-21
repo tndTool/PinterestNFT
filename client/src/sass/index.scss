@@ -217,6 +217,18 @@
   overflow: hidden !important;
 }
 
+.IconSearchPC {
+  @media (max-width: 1120px) {
+    display: none;
+  }
+}
+
+.IconSearchMobile {
+  @media (min-width: 1120px) {
+    display: none;
+  }
+}
+
 // Loading rainbow
 
 .loading {
@@ -316,7 +328,7 @@
 
 @media (max-width: 360px) {
   .home-container {
-    column-count: 1;
+    column-count: 2;
     max-width: 380px;
   }
 }
