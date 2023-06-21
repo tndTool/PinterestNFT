@@ -20,7 +20,6 @@ function App() {
         newestOnTop={false}
         closeOnClick
         rtl={false}
-        pauseOnHover
       />
       <BrowserRouter>
         <Navbar />

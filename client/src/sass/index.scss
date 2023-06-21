@@ -7,8 +7,26 @@
   user-select: none;
 
   ::-webkit-scrollbar {
+    // width: 16px;
     display: none;
   }
+
+  // /* Track */
+  // ::-webkit-scrollbar-track {
+  //   box-shadow: inset 0 0 5px grey;
+  //   border-radius: 10px;
+  // }
+
+  // /* Handle */
+  // ::-webkit-scrollbar-thumb {
+  //   background-image: linear-gradient(-45deg, #1fc5a8, #5761b2);
+  //   border-radius: 50px;
+  // }
+
+  // /* Handle on hover */
+  // ::-webkit-scrollbar-thumb:hover {
+  //   background: #1fc5a8;
+  // }
 }
 
 .text-primary {

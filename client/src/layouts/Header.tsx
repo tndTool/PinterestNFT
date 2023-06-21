@@ -123,7 +123,7 @@ const Header: React.FC<HeaderProps> = () => {
             <input
               className="w-100 border-none bg-light h-100 border-radius-4 outline-none"
               type="text"
-              placeholder="Search..."
+              placeholder="Search"
             />
           </div>
         </form>
