@@ -14,12 +14,11 @@ import Avatar from "../components/Avatar";
 import Loading from "../components/Loading";
 import ImageList from "../components/ImageList";
 
-interface ProfileProps {}
-
-const Profile: React.FC<ProfileProps> = () => {
+const Profile = () => {
   const [avatar, setAvatar] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const [balance, setBalance] = useState<string>("");
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const navigate = useNavigate();
@@ -46,7 +45,6 @@ const Profile: React.FC<ProfileProps> = () => {
     return getImageUrls();
   }, [address]);
 
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
 
   useEffect(() => {
     if (!isLoggedIn) {

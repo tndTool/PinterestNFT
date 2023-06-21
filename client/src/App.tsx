@@ -5,7 +5,7 @@ import NotFound from "./components/NotFound";
 
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
-import CreatePin from "./components/CreatePin";
+import CreatePin from "./pages/CreatePin";
 
 function App() {
   return (
