@@ -45,7 +45,6 @@ const Profile = () => {
     return getImageUrls();
   }, [address]);
 
-
   useEffect(() => {
     if (!isLoggedIn) {
       navigate("/");
@@ -66,7 +65,10 @@ const Profile = () => {
             params: [ownerAddress, "latest"],
           });
           const balanceInEther = ethers.utils.formatEther(balanceInWei);
-          setBalance(balanceInEther);
+          const balanceLast = Number.parseFloat(balanceInEther)
+            .toFixed(4)
+            .replace(/\.?0+$/, "");
+          setBalance(balanceLast);
 
           const urls = await memoizedImageUrls;
           setImageUrls(urls);
