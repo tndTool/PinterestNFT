@@ -21,14 +21,22 @@ const Header: React.FC<HeaderProps> = () => {
   const [isSignedOut, setIsSignedOut] = useState(false);
   const [avatar, setAvatar] = useState<string>("");
 
+  const LOGIN_TIMESTAMP_KEY = "loginTimestamp";
+  const LOGIN_EXPIRATION_TIME = 12 * 60 * 60 * 1000;
+
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-    if (isLoggedIn === "true") {
-      setIsConnected(true);
-    } else {
-      setIsConnected(false);
+    const loginTimestamp = localStorage.getItem(LOGIN_TIMESTAMP_KEY);
+    if (loginTimestamp) {
+      const currentTime = Date.now();
+      const elapsedTime = currentTime - parseInt(loginTimestamp);
+      if (elapsedTime > LOGIN_EXPIRATION_TIME) {
+        localStorage.removeItem(LOGIN_TIMESTAMP_KEY);
+        localStorage.removeItem("isLoggedIn");
+      } else {
+        setIsConnected(true);
+      }
     }
-  }, [location]);
+  }, [location, LOGIN_EXPIRATION_TIME]);
 
   useEffect(() => {
     if (isSignedOut) {
@@ -41,6 +49,7 @@ const Header: React.FC<HeaderProps> = () => {
       const provider = new Web3Provider(window.ethereum);
       await provider.send("wallet_requestPermissions", [{ eth_accounts: {} }]);
       setIsConnected(true);
+      localStorage.setItem(LOGIN_TIMESTAMP_KEY, Date.now().toString());
       localStorage.setItem("isLoggedIn", "true");
     } catch (error: any) {
       toast.error(error.message);
