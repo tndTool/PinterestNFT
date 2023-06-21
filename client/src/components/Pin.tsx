@@ -56,19 +56,14 @@ const Pin: React.FC<PinProps> = ({ tokenId }) => {
         <div className="cursor-zoom-in border-box mb-3" onClick={openModal}>
           <LazyLoad>
             <Suspense fallback={<Loading isLoading={true} />}>
-              <div className="position-relative">
-                <img
-                  className={`d-flex h-100 w-100 border-radius-1 object-fit-cover hover-opacity-80 ${
-                    isLoading ? "d-none" : ""
-                  }`}
-                  src={imageUrl}
-                  alt={`Galverse art ${tokenId}`}
-                  onLoad={() => setIsLoading(false)}
-                />
-                <div className="position-absolute top-0 right-0 mx-3 bg-danger text-white p-1 badge">
-                  {tokenId}
-                </div>
-              </div>
+              <img
+                className={`d-flex h-100 w-100 border-radius-1 object-fit-cover hover-opacity-80 ${
+                  isLoading ? "d-none" : ""
+                }`}
+                src={imageUrl}
+                alt={`Galverse art ${tokenId}`}
+                onLoad={() => setIsLoading(false)}
+              />
             </Suspense>
           </LazyLoad>
         </div>

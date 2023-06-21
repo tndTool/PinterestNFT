@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 
 import { ethers } from "ethers";
 import blockies from "ethereum-blockies-base64";
@@ -22,6 +22,7 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const navigate = useNavigate();
+  const hasDisplayedToast = useRef(false);
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
   const memoizedImageUrls = useMemo(() => {
@@ -46,9 +47,10 @@ const Profile = () => {
   }, [address]);
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      toast.warn("Sign in first!");
+    if (!isLoggedIn && !hasDisplayedToast.current) {
+      toast.error("Sign in first!");
       navigate("/");
+      hasDisplayedToast.current = true;
       return;
     }
 

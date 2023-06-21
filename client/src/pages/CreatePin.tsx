@@ -1,7 +1,7 @@
 import LazyLoad from "react-lazy-load";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, Suspense, useRef } from "react";
 
 import Loading from "../components/Loading";
 import { getAllNFTIds, mintNFT } from "../contracts";
@@ -19,13 +19,14 @@ const CreatePin = () => {
   const [selectedToken, setSelectedToken] = useState<number | null>(null);
 
   const navigate = useNavigate();
+  const hasDisplayedToast = useRef(false);
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      toast.warn("Sign in first!");
+    if (!isLoggedIn && !hasDisplayedToast.current) {
+      toast.error("Sign in first!");
       navigate("/");
-      return;
+      hasDisplayedToast.current = true;
     }
   }, [isLoggedIn, navigate]);
 
@@ -96,18 +97,12 @@ const CreatePin = () => {
               <div className="cursor-zoom-in border-box mb-3">
                 <LazyLoad>
                   <Suspense fallback={<Loading isLoading={true} />}>
-                    <div className="position-relative">
-                      <img
-                        className="d-flex h-100 w-100 border-radius-1 object-fit-cover hover-opacity-80"
-                        src={data.image}
-                        alt={`NFT ${index}`}
-                        onClick={() => handleButtonClick(data.tokenId)}
-                      />
-
-                      <div className="position-absolute top-0 right-0 mx-3 bg-danger text-white p-1 badge">
-                        {data.tokenId}
-                      </div>
-                    </div>
+                    <img
+                      className="d-flex h-100 w-100 border-radius-1 object-fit-cover hover-opacity-80"
+                      src={data.image}
+                      alt={`NFT ${index}`}
+                      onClick={() => handleButtonClick(data.tokenId)}
+                    />
                   </Suspense>
                 </LazyLoad>
               </div>
