@@ -1,5 +1,6 @@
 import { FC, Suspense } from "react";
 import LazyLoad from "react-lazy-load";
+
 import Loading from "./Loading";
 
 interface Props {
