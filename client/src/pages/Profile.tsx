@@ -47,6 +47,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (!isLoggedIn) {
+      toast.warn("Sign in first!");
       navigate("/");
       return;
     }

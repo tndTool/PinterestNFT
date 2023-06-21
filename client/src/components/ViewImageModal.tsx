@@ -114,8 +114,8 @@ const ViewImageModal = ({
                   {memoizedMetadata && (
                     <>
                       <h2>{name}</h2>
-                      <p>{description}</p>
-                      <p className="font-weight-bold">
+                      <p className="text-justify">{description}</p>
+                      <p className="font-weight-bold text-break">
                         Owner: {memoizedOwnerOf}
                       </p>
                     </>

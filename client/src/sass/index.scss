@@ -218,13 +218,13 @@
 }
 
 .IconSearchPC {
-  @media (max-width: 1120px) {
+  @media (max-width: 1024px) {
     display: none;
   }
 }
 
 .IconSearchMobile {
-  @media (min-width: 1120px) {
+  @media (min-width: 1024px) {
     display: none;
   }
 }

@@ -1,5 +1,6 @@
 import LazyLoad from "react-lazy-load";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect, Suspense } from "react";
 
 import Loading from "../components/Loading";
@@ -16,6 +17,17 @@ const CreatePin = () => {
   const [imageData, setImageData] = useState<ImageData[]>([]);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedToken, setSelectedToken] = useState<number | null>(null);
+
+  const navigate = useNavigate();
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      toast.warn("Sign in first!");
+      navigate("/");
+      return;
+    }
+  }, [isLoggedIn, navigate]);
 
   useEffect(() => {
     async function fetchData() {
