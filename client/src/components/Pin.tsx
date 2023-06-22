@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import React, { useState, useEffect, useMemo, Suspense } from "react";
 
 import Loading from "./Loading";
-import ViewImageModal from "./ViewImageModal";
+import ViewImageModal from "./ModalViewImage";
 import { getNFTImageUrlMetadata } from "../contracts/index";
 
 interface PinProps {

@@ -5,7 +5,7 @@ import { useState, useEffect, Suspense, useRef } from "react";
 
 import Loading from "../components/Loading";
 import { getAllNFTIds, mintNFT } from "../contracts";
-import ViewCreatePinModal from "../components/ViewCreatePinModal";
+import ViewCreatePinModal from "../components/ModalCreatePin";
 
 interface ImageData {
   tokenId: number;
