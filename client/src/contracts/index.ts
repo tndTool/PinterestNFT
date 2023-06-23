@@ -4,9 +4,18 @@ import { toast } from "react-toastify";
 import { contractABI } from "./contractABI";
 import { contractAddress } from "./contractAddress";
 
-const provider = new ethers.providers.Web3Provider((window as any).ethereum);
-const signer = provider.getSigner("0x0000000000000000000000000000000000000000");
-const contract = new ethers.Contract(contractAddress, contractABI, signer);
+let provider: ethers.providers.Web3Provider;
+let signer: ethers.providers.JsonRpcSigner;
+let contract: ethers.Contract;
+
+if ((window as any).ethereum) {
+  provider = new ethers.providers.Web3Provider((window as any).ethereum);
+  signer = provider.getSigner("0x0000000000000000000000000000000000000000");
+  contract = new ethers.Contract(contractAddress, contractABI, signer);
+} else {
+  const error = "Please install Metamark!";
+  toast.error(error);
+}
 
 export const getContractName = async () => {
   const name: string = await contract.name();
@@ -44,12 +53,13 @@ export const getTokenURI = async (tokenId: number) => {
 };
 
 export const getAllNFTIds = async () => {
-  const ids = await contract.getAllTokenId();
   let newIds = [];
-  for (let i = 0; i < ids.length; i++) {
-    newIds.push(ids[i].toNumber());
+  if (contract) {
+    const ids = await contract.getAllTokenId();
+    for (let i = 0; i < ids.length; i++) {
+      newIds.push(ids[i].toNumber());
+    }
   }
-
   return newIds;
 };
 
