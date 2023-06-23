@@ -1,7 +1,7 @@
 import LazyLoad from "react-lazy-load";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect, Suspense, useRef } from "react";
+import { useState, useEffect, Suspense, useRef, useMemo } from "react";
 
 import Loading from "../components/Loading";
 import { getAllNFTIds, mintNFT } from "../contracts";
@@ -19,7 +19,7 @@ const CreatePin = () => {
   const [selectedToken, setSelectedToken] = useState<number | null>(null);
 
   const navigate = useNavigate();
-  const hasDisplayedToast = useRef(false);
+  const hasDisplayedToast = useRef<boolean>(false);
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
   useEffect(() => {
@@ -29,6 +29,8 @@ const CreatePin = () => {
       hasDisplayedToast.current = true;
     }
   }, [isLoggedIn, navigate]);
+
+  const memoizedImageData = useMemo(() => imageData, [imageData]);
 
   useEffect(() => {
     async function fetchData() {
@@ -92,16 +94,16 @@ const CreatePin = () => {
       <Loading isLoading={isLoading} />
       <div className="d-flex justify-content-center w-100 h-100 mt-1 overflow-hidden">
         <div className="home-container">
-          {imageData.map((data, index) => (
-            <div key={index} className="d-flex">
+          {memoizedImageData.map(({ tokenId, image }, index) => (
+            <div key={tokenId} className="d-flex">
               <div className="cursor-zoom-in border-box mb-3">
                 <LazyLoad>
                   <Suspense fallback={<Loading isLoading={true} />}>
                     <img
                       className="d-flex h-100 w-100 border-radius-1 object-fit-cover hover-opacity-80"
-                      src={data.image}
+                      src={image}
                       alt={`NFT ${index}`}
-                      onClick={() => handleButtonClick(data.tokenId)}
+                      onClick={() => handleButtonClick(tokenId)}
                     />
                   </Suspense>
                 </LazyLoad>
